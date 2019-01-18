@@ -1,0 +1,34 @@
+<beans:beans
+	xmlns="http://www.springframework.org/schema/security"
+	xmlns:beans="http://www.springframework.org/schema/beans"
+	xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+	xsi:schemaLocation="http://www.springframework.org/schema/beans
+	http://www.springframework.org/schema/beans/spring-beans-3.0.xsd
+	http://www.springframework.org/schema/security
+	http://www.springframework.org/schema/security/spring-security-3.2.xsd">
+
+	<http auto-config="true"><!-- Auto configure HTTP module -->
+		<!-- Overriding the auto-configure -->
+		<intercept-url pattern="/admin**" access="ROLE_MANAGERS" />
+		<logout delete-cookies="true" invalidate-session="true" logout-url="/logout" />
+		<http-basic /> <!-- This tag is essential to trigger Windows dialog box for accepting credentials. 
+			If not given, Spring uses its own login page. -->
+	</http>
+
+	<ldap-server id="ldapServer" url="ldap://localhost:8389/dc=mahendra,dc=org"
+		 /><!-- IMPORTANT: 
+		A production grade directory server requires manager account name and password 
+		 manager-dn="" manager-password=""
+		-->
+
+
+	<authentication-manager>
+		<ldap-authentication-provider
+			group-search-base="ou=groups" user-dn-pattern="uid={0},ou=people" role-prefix="ROLE_">
+			<password-compare password-attribute="userPassword" 
+				hash="{sha}" />
+		</ldap-authentication-provider>
+
+
+	</authentication-manager>
+</beans:beans>
