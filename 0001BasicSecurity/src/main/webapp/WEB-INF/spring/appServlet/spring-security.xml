@@ -6,7 +6,8 @@
 	http://www.springframework.org/schema/security
 	http://www.springframework.org/schema/security/spring-security-3.2.xsd">
  
-	<http auto-config="true">
+	<http auto-config="true"><!-- Auto configure HTTP module -->
+	<!-- Overriding the auto-configure -->
 		<intercept-url pattern="/admin**" access="ROLE_USER" />
 		<http-basic /> <!-- This tag is essential to trigger Windows dialog box for accepting credentials.  
 		If not given, Spring uses its own login page. -->
@@ -15,7 +16,7 @@
 	<authentication-manager>
 	  <authentication-provider>
 	    <user-service>
-			<user name="smita" password="password" authorities="ROLE_USER" />
+			<user name="mahendra" password="password" authorities="ROLE_USER" />
 	    </user-service>
 	  </authentication-provider>
 	</authentication-manager>

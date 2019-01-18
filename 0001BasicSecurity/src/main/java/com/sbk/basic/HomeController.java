@@ -24,10 +24,11 @@ public class HomeController {
 	/**
 	 * Simply selects the home view to render by returning its name.
 	 */
-	@RequestMapping(value = { "/" }, method = RequestMethod.GET)
+	@RequestMapping(value =  "/", method = RequestMethod.GET)
 	public String home(Locale locale, Model model) {
 		logger.info("Welcome home! The client locale is {}.", locale);
-		
+		model.addAttribute("title", "Spring Security Spring Authentication");
+		model.addAttribute("message", "This is un-protected page!");		
 		Date date = new Date();
 		DateFormat dateFormat = DateFormat.getDateTimeInstance(DateFormat.LONG, DateFormat.LONG, locale);
 		
@@ -35,27 +36,27 @@ public class HomeController {
 		
 		model.addAttribute("serverTime", formattedDate );
 		
-		return "Home";
+		return "home";
 	}
 	
-	@RequestMapping(value = {"/admin**"}, method = RequestMethod.GET)
+	@RequestMapping(value = "/admin", method = RequestMethod.GET)
 	public ModelAndView adminPage() {
 		ModelAndView model = new ModelAndView();
 		model.addObject("title", "Spring Security Spring Authentication");
 		model.addObject("message", "This is protected page!");
 		
-		model.setViewName("Admin");
+		model.setViewName("admin");
  
 		return model;
 	}
 
-	@RequestMapping(value = "/innerPage**", method = RequestMethod.GET)
+	@RequestMapping(value = "/innerpage", method = RequestMethod.GET)
 	public ModelAndView innerPage() {
 		ModelAndView model = new ModelAndView();
 		model.addObject("title", "Spring Security Spring Authentication");
 		model.addObject("message", "This is inner page!");
 		
-		model.setViewName("Innerpage");
+		model.setViewName("innerpage");
  
 		return model;
 	}
